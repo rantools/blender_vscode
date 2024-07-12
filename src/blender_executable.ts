@@ -193,6 +193,8 @@ async function getBlenderLaunchEnv() {
     let loadDirsWithNames = await Promise.all(addons.map(a => a.getLoadDirectoryAndModuleName()));
 
     return {
+        REPO: <string>config.get('addon.repoName'),
+        UPDATEMANIFEST: <boolean>config.get('addon.autoUpdateManifest') ? 'yes' : 'no',
         ADDONS_TO_LOAD: JSON.stringify(loadDirsWithNames),
         EDITOR_PORT: getServerPort().toString(),
         ALLOW_MODIFY_EXTERNAL_PYTHON: <boolean>config.get('allowModifyExternalPython') ? 'yes' : 'no',

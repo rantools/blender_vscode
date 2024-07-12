@@ -5,6 +5,7 @@ import traceback
 from pathlib import Path
 from . communication import send_dict_as_json
 from . environment import user_addon_directory, addon_directories
+from .generate_toml import ensure_toml
 
 def setup_addon_links(addons_to_load):
     if not os.path.exists(user_addon_directory):
@@ -16,6 +17,8 @@ def setup_addon_links(addons_to_load):
     path_mappings = []
 
     for source_path, module_name in addons_to_load:
+        if os.environ['UPDATEMANIFEST'] == "yes":
+            ensure_toml(source_path)
         if is_in_any_addon_directory(source_path):
             load_path = source_path
         else:
@@ -31,8 +34,11 @@ def setup_addon_links(addons_to_load):
 
 def load(addons_to_load):
     for source_path, module_name in addons_to_load:
+        if "extensions" in user_addon_directory:
+            module_name=f"bl_ext.{os.environ['REPO']}."+module_name
         try:
             bpy.ops.preferences.addon_enable(module=module_name)
+            bpy.ops.extensions.repo_refresh_all()
         except:
             traceback.print_exc()
             send_dict_as_json({"type" : "enableFailure", "addonPath" : str(source_path)})
@@ -50,5 +56,7 @@ def create_link_in_user_addon_directory(directory, link_path):
 def is_in_any_addon_directory(module_path):
     for path in addon_directories:
         if path == module_path.parent:
+            return True
+        if path == module_path.parent.parent:
             return True
     return False

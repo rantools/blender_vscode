@@ -24,7 +24,9 @@
     "onCommand:blender.runScript",
     "onCommand:blender.setScriptContext",
     "onCommand:blender.openScriptsFolder",
-    "onCommand:blender.newOperator"
+    "onCommand:blender.newOperator",
+    "onCommand:blender.generateManifest",
+    "onCommand:blender.createManifest"
   ],
   "main": "./out/extension",
   "repository": {
@@ -99,6 +101,17 @@
       {
         "command": "blender.newOperator",
         "title": "New Operator",
+        "category": "Blender"
+      },
+      {
+        "command": "blender.generateManifest",
+        "title": "Generate/Update Manifest from bl_info",
+        "category": "Blender"
+      }
+      ,
+      {
+        "command": "blender.createManifest",
+        "title": "Create Manifest",
         "category": "Blender"
       }
     ],
@@ -184,6 +197,23 @@
               "my_addon_name"
             ],
             "description": "Name or the symlink that is created in Blenders addon folder."
+          },
+          
+          "blender.addon.repoName": {
+            "type": "string",
+            "scope": "resource",
+            "default": "user_default",
+            "examples": [
+              "user_default"
+            ],
+            "description": "Name of the Repo"
+          },
+          "blender.addon.autoUpdateManifest": {
+            "type": "boolean",
+            "scope": "resource",
+            "default": true,
+            
+            "description": "Automatically Update blender_manifest.toml file using bl_info from __init__.py file when addon is reloaded."
           },
           "blender.core.buildDebugCommand": {
             "type": "string",

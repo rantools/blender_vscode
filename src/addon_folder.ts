@@ -19,12 +19,14 @@ export class AddonWorkspaceFolder {
         // Search folders specified by settings first, if nothing is specified
         // search workspace folders instead.
         let addonFolders = await foldersToWorkspaceFoldersMockup(
-            <string[]>getConfig().get('addonFolders'));
+            <string[]>getConfig().get('addonFolders')
+        );
+        
         if (addonFolders.length === 0) {
-            addonFolders = getWorkspaceFolders();
+            addonFolders = getWorkspaceFolders().slice(); // Create a mutable copy
         }
-
-        let folders = [];
+    
+        let folders: AddonWorkspaceFolder[] = [];
         for (let folder of addonFolders) {
             let addon = new AddonWorkspaceFolder(folder);
             if (await addon.hasAddonEntryPoint()) {
@@ -33,6 +35,7 @@ export class AddonWorkspaceFolder {
         }
         return folders;
     }
+    
 
     get uri() {
         return this.folder.uri;
@@ -81,13 +84,14 @@ export class AddonWorkspaceFolder {
 
     public async getModuleName() {
         let value = <string>getConfig(this.uri).get('addon.moduleName');
+        
         if (value === 'auto') {
-            return path.basename(await this.getLoadDirectory());
+            value = path.basename(await this.getLoadDirectory());
         }
-        else {
-            return value;
-        }
+        return `${value}`;
+        // return `bl_ext.${repo}.${value}`;
     }
+    
 
     public async getLoadDirectory() {
         let value = <string>getConfig(this.uri).get('addon.loadDirectory');
@@ -130,11 +134,10 @@ async function tryFindActualAddonFolder(root: string) {
 }
 
 async function folderContainsAddonEntry(folderPath: string) {
-    let manifestPath = path.join(folderPath, "blender_manifest.toml");
+    let manifestPath = path.join(folderPath, "blendermanifest.toml");
     if (await pathExists(manifestPath)) {
         return true;
     }
-        
     let initPath = path.join(folderPath, '__init__.py');
     try {
         let content = await readTextFile(initPath);
