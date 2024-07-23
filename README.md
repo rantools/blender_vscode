@@ -1,3 +1,5 @@
+# How to use this? 
+Download it as zip or clone it somewhere on your pc. Open this directory in vscode and press F5 to build and launch this extension. It will open a new vscode instance where you can develop your addons. 
 # What's new in this fork?
 ## Important! 
 When launching any legacy addons that you want to convert to extensions make sure you remove any spaces or dashes from the directory name(underscores are fine) else it won't work. 
