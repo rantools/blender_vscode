@@ -1,4 +1,6 @@
 # What's new in this fork?
+## Important! 
+When launching any legacy addons that you want to convert to extensions make sure you remove any spaces or dashes from the directory name(underscores are fine) else it won't work. 
 ## Blender 4.2 Extensions Compatibility
 Set the Repo name(search 'Repo name') in your workspace settings for your project. This should be the directory name(not the name displayed in Blender Preferences) of the Repo in your Extensions folder. Defaults to user_default repo which comes with blender.
 ## Auto generate Manifest file
