@@ -34,11 +34,12 @@ def setup_addon_links(addons_to_load):
 
 def load(addons_to_load):
     for source_path, module_name in addons_to_load:
-        if "extensions" in user_addon_directory:
+        if "extensions" in str(user_addon_directory):
             module_name=f"bl_ext.{os.environ['REPO']}."+module_name
         try:
             bpy.ops.preferences.addon_enable(module=module_name)
-            bpy.ops.extensions.repo_refresh_all()
+            if bpy.app.version>=(4,2,0):
+                bpy.ops.extensions.repo_refresh_all()
         except:
             traceback.print_exc()
             send_dict_as_json({"type" : "enableFailure", "addonPath" : str(source_path)})

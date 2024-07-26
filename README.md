@@ -1,17 +1,13 @@
-# How to use this? 
-Download it as zip or clone it somewhere on your pc. Open this directory in vscode and press F5 to build and launch this extension. It will open a new vscode instance where you can develop your addons. 
-# What's new in this fork?
-## Important! 
-When launching any legacy addons that you want to convert to extensions make sure you remove any spaces or dashes from the directory name(underscores are fine) else it won't work. 
+# Whats new in this fork?
 ## Blender 4.2 Extensions Compatibility
-Set the Repo name(search 'Repo name') in your workspace settings for your project. This should be the directory name(not the name displayed in Blender Preferences) of the Repo in your Extensions folder. Defaults to user_default repo which comes with blender.
+Set the Repo name(search 'Repo name') in your workspace settings for your project. This should be a the directory name(not the name displayed in Blender Preferences) of the Repo in your Extensions folder. Defaults to user_default repo which comes with blender.
 ## Auto generate Manifest file
-If you launch any legacy add-ons, this extension will automatically generate a manifest file based on bl_info data. It will also update it when bl_info is updated in the init.py file.
-You can turn this feature off by searching "Auto Update Manifest" in the vscode settings.
+If you launch any legacy addons the addon will automatically generate a manifest file based on bl_info data. It will also update it when bl_info is updated in the init.py file.
+You can turn this feature off by searching "Auto Update Manifest" in vscode settings.
 ## VSCode commands to Generate/Update Manifest based on bl_info
-Press CTRL+SHIFT+P and search 'Generate/Update Manifest from bl_info' to create a Manifest file. If Manifest doesn't exist already it will ask you for some extra info(License, Tags and Permissions)
+Press CTRL+SHIFT+P and search 'Generate/Update Manifest from bl_info' to create a Manifest file. If Manifest doesn't exist already it will ask you for some extra info(License,Tags and Permissions)
 ## VSCode command to Create Manifest from scratch
-Press CTRL+SHIFT+P and search 'Create Manifest'. It will ask you to specify each field of the manifest file manually.
+Press CTRL+SHIFT+P and search 'Create Manifest'. It will ask you to manually specify each field of the manifest file.
 # Blender Development in VS Code
 
 The only key combination you have to remember is `ctrl+shift+P`.

@@ -17,12 +17,13 @@ else:
 version = bpy.app.version
 scripts_folder = blender_path.parent / f"{version[0]}.{version[1]}" / "scripts"
 user_addon_directory = Path(bpy.utils.user_resource('SCRIPTS', path="addons"))
-for a in addon_utils._preferences.extensions.repos:
-    directory=a.directory
-    dir_name=Path(directory).name
-    if dir_name==os.environ['REPO']:
-        user_addon_directory = directory
-        extensions_dir=Path(user_addon_directory).parent
+if bpy.app.version>=(4,2,0):
+    for a in addon_utils._preferences.extensions.repos:
+        directory=a.directory
+        dir_name=Path(directory).name
+        if dir_name==os.environ['REPO']:
+            user_addon_directory = directory
+            extensions_dir=Path(user_addon_directory).parent
 
 addon_directories = tuple(map(Path, addon_utils.paths()+[user_addon_directory,]))
 
